@@ -104,70 +104,45 @@ char		*free_and_nullify(char *stock)
 	return (NULL);
 }
 
-
-/* Degre d'abstraction supplementaire : groupe d'instruc pour read dans une sous-fonctions
-int				get_next_line(const int fd, char **line)
+int				ft_file_read(int fd, char **line, char **stock)
 {
-	static t_string		*stock;
-	char				buffer[BUFF_SIZE];
-	int					read_len;
-	unsigned int		is_nl_in_stock;
-	t_string			*temp;
+	char			buffer[BUFF_SIZE];
+	int				read_len;
+	int				is_nl_in_stock;
 
-	read_len = 1;
-	if(!(temp = adapt_stock_for_fd(fd, &stock)))
-		return (-1);
-	if (((is_nl_in_stock = test_stock_nl(line, &temp->str))) == 0)
+	if (((is_nl_in_stock = test_stock_nl(line, stock))) == 0)
 	{
 		while((read_len = read(fd, buffer, BUFF_SIZE)) > 0)
 		{
-			if (test_buffer_nl(line, buffer, &temp->str, read_len) == 1)
+			if (test_buffer_nl(line, buffer, stock, read_len) == 1)
 				break;
 		}
 	}
 	if (is_nl_in_stock == 666 || read_len == -1)
 		return (-1);
-	if (!*temp->str && read_len == 0) //stock est vide et fichier est vide : plus rien a afficher
-	{
-		stock->str = free_and_nullify(temp->str);
+	if (read_len == 0)
 		return (0);
-	}
-	if (*temp->str && read_len == 0) //stock n'est pas vide mais fichier est vide
-	{
-		*line = ft_strcpy(*line, temp->str);
-		*(temp->str) = '\0';
-	}
 	return (1);
 }
- */
+
 
 int				get_next_line(const int fd, char **line)
 {
 	static t_string		*stock;
-	char				buffer[BUFF_SIZE];
-	int					read_len;
-	unsigned int		is_nl_in_stock;
+	int		ret;
 	t_string			*temp;
 
-	read_len = 1;
 	if(!(temp = adapt_stock_for_fd(fd, &stock)))
 		return (-1);
-	if (((is_nl_in_stock = test_stock_nl(line, &temp->str))) == 0)
-	{
-		while((read_len = read(fd, buffer, BUFF_SIZE)) > 0)
-		{
-			if (test_buffer_nl(line, buffer, &temp->str, read_len) == 1)
-				break;
-		}
-	}
-	if (is_nl_in_stock == 666 || read_len == -1)
+	ret = ft_file_read(fd, line, &temp->str);
+	if (ret == -1)
 		return (-1);
-	if (!*temp->str && read_len == 0) //stock est vide et fichier est vide : plus rien a afficher
+	if (!*temp->str && ret == 0) //stock est vide et fichier est vide : plus rien a afficher
 	{
 		stock->str = free_and_nullify(temp->str);
 		return (0);
 	}
-	if (*temp->str && read_len == 0) //stock n'est pas vide mais fichier est vide
+	if (*temp->str && ret == 0) //stock n'est pas vide mais fichier est vide
 	{
 		*line = ft_strcpy(*line, temp->str);
 		*(temp->str) = '\0';
