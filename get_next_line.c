@@ -1,17 +1,17 @@
 #include "get_next_line.h"
-#include "strings_functions.h"
-#include <unistd.h>
+#include "Libft/header.h"
+#include <stdlib.h>
 
-int		test_nl(const char *buffer, int read_len)
+int		test_nl(const char *buffer, int len, char c)
 {
 	int i;
 
 	i = 0;
 	if (buffer)
 	{
-		while (i < read_len)
+		while (i < len)
 		{
-			if (buffer[i] == '\n')
+			if (buffer[i] == c)
 				return (i);
 			i++;
 		}
@@ -54,7 +54,7 @@ unsigned int	test_stock_nl(char **line, char **stock)
 unsigned int	test_buffer_nl(char **line, char *buffer, char **stock, int read_len)
 {
 	int	indice_nl_buffer;
-	if ((indice_nl_buffer = test_nl(buffer, read_len)) >= 0)
+	if ((indice_nl_buffer = test_nl(buffer, read_len, '\n')) >= 0)
 	{
 		free (*line);
 		*line = ft_strnjoin(*stock, buffer, indice_nl_buffer);
@@ -66,23 +66,18 @@ unsigned int	test_buffer_nl(char **line, char *buffer, char **stock, int read_le
 	return (0);
 }
 
-t_string	*initialize_t_string(int fd, t_string *stock)
-{
-	if (!(stock = malloc(sizeof(t_string))))
-		return (NULL);
-	stock->str = NULL;
-	stock->fd = fd;
-	stock->next = NULL;
-	return (stock);
-}
-
 t_string	*adapt_stock_for_fd(int fd, t_string **begin_list)
 {
 	t_string	**current;
 
 	if (!*begin_list)
-		if (!(*begin_list = initialize_t_string(fd, *begin_list)))
+	{
+		if (!(*begin_list = malloc(sizeof(t_string))))
 			return (NULL);
+		(*begin_list)->str  = NULL;
+		(*begin_list)->fd   = fd;
+		(*begin_list)->next = NULL;
+	}
 	current = begin_list;
 	while(*current)
 	{
@@ -96,12 +91,6 @@ t_string	*adapt_stock_for_fd(int fd, t_string **begin_list)
 	(*current)->fd = fd;
 	(*current)->next = NULL;
 	return (*current);
-}
-
-char		*free_and_nullify(char *stock)
-{
-	free(stock);
-	return (NULL);
 }
 
 int				ft_file_read(int fd, char **line, char **stock)
@@ -125,11 +114,10 @@ int				ft_file_read(int fd, char **line, char **stock)
 	return (1);
 }
 
-
 int				get_next_line(const int fd, char **line)
 {
 	static t_string		*stock;
-	int		ret;
+	int					ret;
 	t_string			*temp;
 
 	if(!(temp = adapt_stock_for_fd(fd, &stock)))
@@ -139,7 +127,8 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if (!*temp->str && ret == 0) //stock est vide et fichier est vide : plus rien a afficher
 	{
-		stock->str = free_and_nullify(temp->str);
+		free(temp->str);
+		temp->str = NULL;
 		return (0);
 	}
 	if (*temp->str && ret == 0) //stock n'est pas vide mais fichier est vide

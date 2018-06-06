@@ -1,15 +1,14 @@
 #include <stdio.h>
-#include "strings_functions.h"
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <errno.h>
 #include <memory.h>
+#include <stdlib.h>
 
 int main(void)
 {
 	int		fd;
 	int		i;
-	int		file;
 	char	**line;
 
 	i = 1;
@@ -22,8 +21,8 @@ int main(void)
 	 //
 //	fd = open("./tests_persos/sans_nl.txt", O_RDONLY);
 //	fd = open("./tests_persos/un_caractere_avec_nl.txt", O_RDONLY);
-//	fd = open("./tests_persos/test1.txt", O_RDONLY);
-	fd = open("./tests_persos/6_caracteres.txt", O_RDONLY);
+	fd = open("./tests_persos/test1.txt", O_RDONLY);
+//	fd = open("./tests_persos/6_caracteres.txt", O_RDONLY);
 //	fd = open("./tests_persos/3_caracteres.txt", O_RDONLY);
 
 	if (fd != -1)
@@ -36,7 +35,8 @@ int main(void)
 	}
 	else
 		printf("%s\n", strerror(errno));
-*/
+/*/
+	int		file;
 
 	file = 0;
 	if((fd = open("./tests_persos/3_caracteres.txt", O_RDONLY)) != -1)
