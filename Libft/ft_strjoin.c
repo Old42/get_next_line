@@ -1,4 +1,5 @@
-#include <malloc.h>
+
+#include <stdlib.h>
 
 char	*ft_strjoin(char *s1, const char *s2)
 {
