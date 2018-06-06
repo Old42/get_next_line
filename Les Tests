@@ -1,0 +1,12 @@
+get_next_line, appel de test_buffer_nl :
+Si parmi les caracteres lus, pas de '\n', alors on stocke temporairement les caracteres
+puis on passe aux suivants.
+Quand un '\n' est detecte, la chaine de caractere line contient tous les caracteres
+lus precedemment ainsi que les caracteres jusqu'au '\n' de la derniere lecture.
+Les caracteres depassant le '\n' sont stockes jusqu'a prochaine utilisation de GNL.
+
+get_next_line, appel de test_stock_nl :
+Si parmi les caracteres stockes a la precedente utilisation de GNL, il y a un '\n'
+la chaine de caractere line contiendra les caracteres jusqu'a ce '\n', les caracteres
+depassant seront stockes jusqu'a prochaine utilisation de GNL.
+Aucune lecture du fichier n'est effectuee.

@@ -1,0 +1,19 @@
+-Recuperer les caracteres dans le fichier
+	-jusqu'au \n
+-Copier et renvoyer les caracteres jusqu'au \n
+-Copier et stocker les caracteres restants
+
+Fonction lecture de fichier
+Fonction test if nl
+Fonction
+
+
+
+Idee : test_nl : copier jusqu'a \0
+		Probleme s'il y a un \0 dans le fichier
+
+DONETODO : Si on un BUFF_SIZE de 1, que le premier caractere est un H et que le second est un '\n'
+DONETODO : Si read_len = 0 et qu'il y a un '\n' ca peut poser probleme
+
+je ne sais pas comment concatener les 2 caracteres sans que le contenu de la ligne precedente deja sortie
+soit aussi concatene.
