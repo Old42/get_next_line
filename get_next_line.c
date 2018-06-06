@@ -56,7 +56,7 @@ unsigned int	test_buffer_nl(char **line, char *buffer, char **stock, int read_le
 	int	indice_nl_buffer;
 	if ((indice_nl_buffer = test_nl(buffer, read_len, '\n')) >= 0)
 	{
-		free (*line);
+//		free (*line);
 		*line = ft_strnjoin(*stock, buffer, indice_nl_buffer);
 		*stock = ft_strcpyfromn(buffer, indice_nl_buffer, read_len);
 		return (1);
