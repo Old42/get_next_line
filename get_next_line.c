@@ -4,7 +4,7 @@
 
 int		test_nl(const char *buffer, int read_len)
 {
-	unsigned int i;
+	int i;
 
 	i = 0;
 	if (buffer)
