@@ -8,8 +8,6 @@ char	*ft_strcpy(char *dest, char *src)
 
 	i = 0;
 	src_len = ft_strlen(src);
-//	if (dest != NULL)
-//		free(dest);
 	if (!(dest = malloc(src_len + 1)))
 		return (NULL);
 	while (src[i])

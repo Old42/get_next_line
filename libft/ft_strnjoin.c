@@ -22,7 +22,7 @@ char	*ft_strnjoin(char *stock, const char *buffer, int indice_nl)
 	while (i < indice_nl)
 		str[k++] = buffer[i++];
 	str[k] = '\0';
-	free(stock);//free la chaine de caractere precedente sinon elle est perdue lors du re-referencage
+	free(stock);
 	stock = NULL;
 	return (str);
 }

@@ -56,7 +56,6 @@ unsigned int	test_buffer_nl(char **line, char *buffer, char **stock, int read_le
 	int	indice_nl_buffer;
 	if ((indice_nl_buffer = test_nl(buffer, read_len, '\n')) >= 0)
 	{
-//		free (*line);
 		*line = ft_strnjoin(*stock, buffer, indice_nl_buffer);
 		*stock = ft_strcpyfromn(buffer, indice_nl_buffer, read_len);
 		return (1);
@@ -127,13 +126,13 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if (!temp->str)
 		return (0);
-	if (!*temp->str && ret == 0) //stock est vide et fichier est vide : plus rien a afficher
+	if (!*temp->str && ret == 0)
 	{
 		free(temp->str);
 		temp->str = NULL;
 		return (0);
 	}
-	if (*temp->str && ret == 0) //stock n'est pas vide mais fichier est vide
+	if (*temp->str && ret == 0)
 	{
 		*line = ft_strcpy(*line, temp->str);
 		*(temp->str) = '\0';

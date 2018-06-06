@@ -17,7 +17,7 @@ char		*ft_strunjoin(char **line, char *stock, unsigned int indice_nl)
 		(*line)[i] = stock[i];
 		i++;
 	}
-	(*line)[i++] = '\0'; //on depasse le \n
+	(*line)[i++] = '\0';
 	while (stock[i] != '\0')
 		i++;
 	if (!(new_stock = malloc(i - indice_nl)))
