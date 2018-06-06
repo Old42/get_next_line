@@ -125,6 +125,8 @@ int				get_next_line(const int fd, char **line)
 	ret = ft_file_read(fd, line, &temp->str);
 	if (ret == -1)
 		return (-1);
+	if (!temp->str)
+		return (0);
 	if (!*temp->str && ret == 0) //stock est vide et fichier est vide : plus rien a afficher
 	{
 		free(temp->str);

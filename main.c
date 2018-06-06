@@ -4,9 +4,11 @@
 #include <errno.h>
 #include <memory.h>
 #include <stdlib.h>
+#include <zconf.h>
 
 int main(void)
 {
+	/*
 	int		fd;
 	int		i;
 	char	**line;
@@ -35,7 +37,7 @@ int main(void)
 	}
 	else
 		printf("%s\n", strerror(errno));
-/*/
+/
 	int		file;
 
 	file = 0;
@@ -53,8 +55,48 @@ int main(void)
 			i = 1;
 			printf("Fichier %d, Ligne %d : %s\n", file, i, *line);
 		}
-//*/
-	free(*line);
+*/
+
+	//TEST 04 TEST_RETURN_VALUES
+	char    *line;
+	int             out;
+	int             p[2];
+	int             fd;
+	int             gnl_ret;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abc\n\n", 5);
+	close(p[1]);
+	dup2(out, fd);
+
+	/* Read abc and new line */
+	if (((gnl_ret = get_next_line(p[0], &line))) > 0)
+	{
+		printf("Read abc and new line : %s\n", line);
+	}
+
+	/* Read new line */
+	if (((gnl_ret = get_next_line(p[0], &line))) > 0)
+	{
+		printf("Read new line : %s\n", line);
+	}
+
+	/* Read again, but meet EOF */
+	if (((gnl_ret = get_next_line(p[0], &line))) > 0)
+	{
+		printf("Read new line : %s\n", line);
+	}
+	/* Let's do it once again */
+	if (((gnl_ret = get_next_line(p[0], &line))) > 0)
+	{
+		printf("Read new line : %s\n", line);
+	}
+
+	free((void *)*line);
 	free(line);
 	return (0);
 }
