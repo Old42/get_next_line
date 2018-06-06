@@ -23,7 +23,10 @@ char	*ft_strcpy(char *dest, char *src)
 	if (!(dest = malloc(src_len + 1)))
 		return (NULL);
 	while (src[i])
-		dest[i] = src[i++];
+	{
+		dest[i] = src[i];
+		i++;
+	}
 	dest[i] = '\0';
 	return (dest);
 }
@@ -46,7 +49,10 @@ char	*ft_strjoin(char *s1, const char *s2)
 	if (!(str = malloc(i + j + 1)))
 		return (NULL);
 	while (k < i)
-		str[k] = s1[k++];
+	{
+		str[k] = s1[k];
+		k++;
+	}
 	i = 0;
 	while (i < j)
 		str[k++] = s2[i++];
@@ -63,8 +69,8 @@ char	*ft_strjoin(char *s1, const char *s2)
 char	*ft_strnjoin(char *stock, const char *buffer, int indice_nl)
 {
 	char			*str;
-	unsigned int	i;
-	unsigned int	k;
+	int	i;
+	int	k;
 
 	i = 0;
 	k = 0;
@@ -74,7 +80,10 @@ char	*ft_strnjoin(char *stock, const char *buffer, int indice_nl)
 	if (!(str = malloc(i + indice_nl + 1)))
 		return (NULL);
 	while (k < i)
-		str[k] = stock[k++];
+	{
+		str[k] = stock[k];
+		k++;
+	}
 	i = 0;
 	while (i < indice_nl)
 		str[k++] = buffer[i++];
@@ -102,7 +111,10 @@ char		*ft_strunjoin(char **line, char *stock, unsigned int indice_nl)
 		return (NULL);
 	}
 	while (i < indice_nl)
-		(*line)[i] = stock[i++];
+	{
+		(*line)[i] = stock[i];
+		i++;
+	}
 	(*line)[i++] = '\0'; //on depasse le \n
 	while (stock[i] != '\0')
 		i++;
