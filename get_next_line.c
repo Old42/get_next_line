@@ -1,5 +1,5 @@
 #include "get_next_line.h"
-#include "Libft/header.h"
+#include "libft/header.h"
 #include <stdlib.h>
 
 int		test_nl(const char *buffer, int len, char c)
